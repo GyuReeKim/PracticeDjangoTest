@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block body %}
+  <a href="{% url 'musics:update' music.id %}">수정</a>
+  <form action="{% url 'musics:delete' music.id %}" method="post">
+    {% csrf_token %}
+    <input type="submit" value="삭제">
+  </form>
+  <h3>{{music.title_1}}</h3>
+  <img src="{{music.image_url_1}}" alt="" style="width: 150px">
+  <h5>{{favor_per_1}}%</h5>
+  <h3>{{music.title_2}}</h3>
+  <img src="{{music.image_url_2}}" alt="" style="width: 150px">
+  <h5>{{favor_per_2}}%</h5>
+
+  <form action="{% url 'musics:favor_create' music.id %}" method="post">
+    {% csrf_token %}
+    {{form.as_p}}
+    <input type="submit">
+  </form>
+  <hr>
+  {% for favor in music.favor_set.all %}
+    <h3>{{favor.comment}}</h3>
+    <form action="{% url 'musics:favor_delete' music.id favor.id %}" method="post">
+      {% csrf_token %}
+      <input type="submit" value="삭제">
+    </form>
+  {% endfor %}
+{% endblock %}

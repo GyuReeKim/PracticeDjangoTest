@@ -1,0 +1,8 @@
+{% extends 'base.html' %}
+{% block body %}
+  <h1>index</h1>
+  {% for music in musics %}
+    <h3>{{music.title_1}} vs {{music.title_2}}</h3>
+    <a href="{% url 'musics:detail' music.id %}">상세보기</a>
+  {% endfor %}
+{% endblock %}
